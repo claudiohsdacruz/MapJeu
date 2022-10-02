@@ -142,6 +142,7 @@
     <ClCompile Include="camouflage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.hpp" />
+    <ClCompile Include="piece.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="mapExpert25.txt" />
@@ -149,6 +150,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camouflage.h" />
+    <ClInclude Include="piece.h" />
+    <ClInclude Include="vecteur.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
