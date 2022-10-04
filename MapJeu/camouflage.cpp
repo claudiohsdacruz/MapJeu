@@ -41,9 +41,24 @@ void camouflage::initPiece()
 }
 
 
-void camouflage::placerPiece(int noPiece, int i, int j)
+//place la pièce dans la solution à l’index line et col reçu
+void camouflage::placerPiece(int noPiece, int ligne, int col)
 {
-	
+	piece piecePlace = *(_pieces[noPiece]);
+
+	for (int i = 0; i < 2; i++)
+		for (int j = 0; j < 2; j++)
+		{
+			if (piecePlace.siValide(i, j)) {
+				string casePiece;
+				casePiece += piecePlace.getNom();
+				casePiece += piecePlace.getValeur(i, j);
+				cout << casePiece << endl;
+
+				_solutionJeu[i + ligne][j + col] = casePiece;
+			}
+		}
+
 }
 
 /// <summary>
