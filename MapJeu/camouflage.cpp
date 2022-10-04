@@ -41,7 +41,12 @@ void camouflage::initPiece()
 }
 
 
-//place la pièce dans la solution à l’index line et col reçu
+/// <summary>
+/// place la pièce dans la solution à l’index line et col reçu
+/// </summary>
+/// <param name="noPiece"></param>
+/// <param name="ligne"></param>
+/// <param name="col"></param>
 void camouflage::placerPiece(int noPiece, int ligne, int col)
 {
 	piece piecePlace = *(_pieces[noPiece]);
