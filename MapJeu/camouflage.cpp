@@ -46,6 +46,9 @@ void camouflage::placerPiece(int noPiece, int i, int j)
 	
 }
 
+/// <summary>
+/// Initialise la map de la solution
+/// </summary>
 void camouflage::initSolution()
 {
 	_solutionJeu.resize(4, 4);
@@ -58,6 +61,13 @@ void camouflage::initSolution()
 	}
 }
 
+/// <summary>
+/// Vérifie si la pièece est compatible avec la map à une certaine position
+/// </summary>
+/// <param name="noPiece"></param>
+/// <param name="ligne"></param>
+/// <param name="col"></param>
+/// <returns></returns>
 bool camouflage::isMatch(int noPiece, int ligne, int col)
 {
 	for (int i = 0; i < 2; i++)
@@ -105,6 +115,12 @@ bool camouflage::isMatch(int noPiece, int ligne, int col)
 	return true;
 }
 
+/// <summary>
+/// Retire la pièce de la solution
+/// </summary>
+/// <param name="noPiece"></param>
+/// <param name="ligne"></param>
+/// <param name="col"></param>
 void camouflage::retirerPiece(int noPiece, int ligne, int col)
 {
 	_solutionJeu[ligne][col] = "  ";
