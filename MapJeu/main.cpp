@@ -16,8 +16,7 @@ void main() {
 	camouflage game;
 	
 	game.init();
-
-
+	game.placerPiece(1, 1, 1);
 	
 	/*
 	cout << "3 Cases" << endl << endl;
