@@ -19,6 +19,7 @@ public:
 	void init();
 	void initMap();
 	void initPiece();
+	void initSolution();
 
 	//void initSolution();
 

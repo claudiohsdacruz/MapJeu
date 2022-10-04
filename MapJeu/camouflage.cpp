@@ -39,6 +39,7 @@ void camouflage::initPiece()
 		}
 }
 
+<<<<<<< HEAD
 
 
 void camouflage::placerPiece(int noPiece, int i, int j)
@@ -49,6 +50,23 @@ void camouflage::placerPiece(int noPiece, int i, int j)
 
 void camouflage::retirerPiece(int noPiece, int i, int j)
 {
+=======
+void camouflage::initSolution()
+{
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			_solutionJeu[i][j] = "  ";
+		}
+	}
+}
+
+bool camouflage::isMatch(int noPiece, int i, int j) const
+{
+
+>>>>>>> aecb026eccc4d9cc5312fcdd96663c6473b4fa97
 }
 
 bool camouflage::resoudre(int noPiece = 0)
