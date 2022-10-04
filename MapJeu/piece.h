@@ -22,7 +22,7 @@ public:
 	//Getters
 	char getNom()const;
 	bool siValide(int ligne, int col)const;
-	bool getValeur(int ligne, int col)const;
+	char getValeur(int ligne, int col)const;
 
 	//Setters
 	void setNom(char nom);

@@ -1,6 +1,3 @@
-
-
-
 #pragma once
 #include "map.hpp"
 #include "vecteur.hpp"
@@ -21,10 +18,8 @@ public:
 	void initPiece();
 	void initSolution();
 
-	//void initSolution();
-
-	bool isMatch(int noPiece, int i, int j) const;
+	bool isMatch(int noPiece, int ligne, int col);
 	void placerPiece(int noPiece, int i, int j);
-	void retirerPiece(int noPiece, int i, int j);
+	void retirerPiece(int noPiece, int ligne, int col);
 	bool resoudre(int noPiece = 0);
 };

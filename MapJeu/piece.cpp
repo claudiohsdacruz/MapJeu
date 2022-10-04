@@ -34,7 +34,7 @@ bool piece::siValide(int ligne, int col)const
 /// <param name="ligne"></param>
 /// <param name="col"></param>
 /// <returns></returns>
-bool piece::getValeur(int ligne, int col)const
+char piece::getValeur(int ligne, int col)const
 {
 	assert(ligne >= 0 && ligne < 2);
 	assert(col >= 0 && col < 2);

@@ -1,0 +1,6 @@
+4 4
+
+B I B B 
+B E E E 
+B I B B 
+E E E B 
