@@ -38,3 +38,8 @@ void camouflage::initPiece()
 			cout << endl;
 		}
 }
+
+bool camouflage::resoudre(int noPiece, int i, int j)
+{
+	return false;
+}
