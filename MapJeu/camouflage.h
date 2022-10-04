@@ -13,7 +13,7 @@ private:
 	map<char> _mapJeu;
 	map<string> _solutionJeu;
 	vecteur<piece*> _pieces;
-	bool _solution;
+	bool _solutionne;
 
 public:
 	void init();

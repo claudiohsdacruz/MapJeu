@@ -39,6 +39,18 @@ void camouflage::initPiece()
 		}
 }
 
+
+
+void camouflage::placerPiece(int noPiece, int i, int j)
+{
+	
+	_solutionJeu
+}
+
+void camouflage::retirerPiece(int noPiece, int i, int j)
+{
+}
+
 bool camouflage::resoudre(int noPiece = 0)
 {
 	if (noPiece == 6) return true;
