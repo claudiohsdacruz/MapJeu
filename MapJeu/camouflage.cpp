@@ -39,7 +39,23 @@ void camouflage::initPiece()
 		}
 }
 
-bool camouflage::resoudre(int noPiece, int i, int j)
+bool camouflage::resoudre(int noPiece = 0)
 {
+	if (noPiece == 6) return true;
+	
+	for (int r = 0; r < 4; r++)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 4; j++) 
+			{
+				if (isMatch(noPiece, i, j))
+					placerPiece(noPiece, i, j);
+				if (resoudre(noPiece + 1))
+					retirerPiece(noPiece, i, j);
+			}
+		}
+		_pieces[noPiece]->rotation();
+	}
 	return false;
 }
