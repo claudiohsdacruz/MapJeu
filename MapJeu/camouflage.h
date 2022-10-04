@@ -21,8 +21,10 @@ public:
 	void initPiece();
 	void initSolution();
 
+	//void initSolution();
+
 	bool isMatch(int noPiece, int i, int j) const;
-	//void placerPiece(int noPiece, int i, int j);
-	//void retirerPiece(int noPiece, int i, int j);
-	bool resoudre(int noPiece, int i, int j);
+	void placerPiece(int noPiece, int i, int j);
+	void retirerPiece(int noPiece, int i, int j);
+	bool resoudre(int noPiece = 0);
 };
