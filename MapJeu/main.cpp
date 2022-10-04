@@ -17,7 +17,8 @@ void main() {
 	
 	game.init();
 
-	game.isMatch(0, 0, 0);
+	game.resoudre();
+	
 	
 	/*
 	cout << "3 Cases" << endl << endl;

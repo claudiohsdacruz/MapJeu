@@ -50,16 +50,15 @@ void camouflage::initPiece()
 void camouflage::placerPiece(int noPiece, int ligne, int col)
 {
 	piece piecePlace = *(_pieces[noPiece]);
+	string casePiece;
 
 	for (int i = 0; i < 2; i++)
 		for (int j = 0; j < 2; j++)
 		{
 			if (piecePlace.siValide(i, j)) {
-				string casePiece;
+				
 				casePiece += piecePlace.getNom();
 				casePiece += piecePlace.getValeur(i, j);
-				cout << casePiece << endl;
-
 				_solutionJeu[i + ligne][j + col] = casePiece;
 			}
 		}
@@ -143,7 +142,19 @@ bool camouflage::isMatch(int noPiece, int ligne, int col)
 /// <param name="col"></param>
 void camouflage::retirerPiece(int noPiece, int ligne, int col)
 {
-	_solutionJeu[ligne][col] = "  ";
+	piece piecePlace = *(_pieces[noPiece]);
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 2; j++)
+		{
+				if (piecePlace.siValide(i, j)) 
+				{
+
+					_solutionJeu[i + ligne][j + col] = "  ";
+				}
+		}
+	}
+		
 }
 
 bool camouflage::resoudre(int noPiece)
@@ -164,5 +175,7 @@ bool camouflage::resoudre(int noPiece)
 		}
 		_pieces[noPiece]->rotation();
 	}
+
+	readSolution(_solutionJeu, "solutionNomNoMap");
 	return false;
 }
