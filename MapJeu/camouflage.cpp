@@ -39,23 +39,6 @@ void camouflage::initPiece()
 		}
 }
 
-void camouflage::initSolution()
-{
-
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 4; j++)
-		{
-			_solutionJeu[i][j] = "  ";
-		}
-	}
-}
-
-bool camouflage::isMatch(int noPiece, int i, int j) const
-{
-
-}
-
 bool camouflage::resoudre(int noPiece, int i, int j)
 {
 	return false;
