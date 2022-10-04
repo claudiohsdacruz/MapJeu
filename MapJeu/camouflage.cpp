@@ -46,10 +46,6 @@ void camouflage::placerPiece(int noPiece, int i, int j)
 	
 }
 
-void camouflage::retirerPiece(int noPiece, int i, int j)
-{
-}
-
 void camouflage::initSolution()
 {
 	_solutionJeu.resize(4, 4);
