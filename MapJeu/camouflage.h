@@ -22,4 +22,5 @@ public:
 	void placerPiece(int noPiece, int i, int j);
 	void retirerPiece(int noPiece, int ligne, int col);
 	bool resoudre(int noPiece = 0);
+	void afficherLaSolution();
 };

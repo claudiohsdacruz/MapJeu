@@ -62,7 +62,6 @@ void camouflage::placerPiece(int noPiece, int ligne, int col)
 				_solutionJeu[i + ligne][j + col] = casePiece;
 			}
 		}
-
 }
 
 /// <summary>
@@ -147,11 +146,11 @@ void camouflage::retirerPiece(int noPiece, int ligne, int col)
 	{
 		for (int j = 0; j < 2; j++)
 		{
-				if (piecePlace.siValide(i, j)) 
-				{
+			if (piecePlace.siValide(i, j)) 
+			{
 
-					_solutionJeu[i + ligne][j + col] = "  ";
-				}
+				_solutionJeu[i + ligne][j + col] = "  ";
+			}
 		}
 	}
 		
@@ -168,14 +167,29 @@ bool camouflage::resoudre(int noPiece)
 			for (int j = 0; j < 4; j++) 
 			{
 				if (isMatch(noPiece, i, j))
+				{
 					placerPiece(noPiece, i, j);
-				if (resoudre(noPiece + 1))
-					retirerPiece(noPiece, i, j);
+
+					if (resoudre(noPiece + 1))
+					{
+						return true;
+					}
+					else
+					{
+						retirerPiece(noPiece, i, j);
+					}
+				}	
 			}
 		}
 		_pieces[noPiece]->rotation();
 	}
 
-	readSolution(_solutionJeu, "solutionNomNoMap");
+	
 	return false;
+}
+
+void camouflage::afficherLaSolution()
+{
+	_solutionJeu.print(cout);
+	readSolution(_solutionJeu, "solutionNomNoMap.txt");
 }
