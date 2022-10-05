@@ -10,7 +10,7 @@ private:
 	map<char> _mapJeu;
 	map<string> _solutionJeu;
 	vecteur<piece*> _pieces;
-	bool _solutionne;
+	bool _solutionner;
 
 public:
 	void init();
@@ -23,4 +23,5 @@ public:
 	void retirerPiece(int noPiece, int ligne, int col);
 	bool resoudre(int noPiece = 0);
 	void afficherLaSolution();
+	void game();
 };

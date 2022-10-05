@@ -57,7 +57,7 @@ void camouflage::placerPiece(int noPiece, int ligne, int col)
 		{
 			if (piecePlace.siValide(i, j)) {
 				
-				casePiece += piecePlace.getNom();
+				casePiece = piecePlace.getNom();
 				casePiece += piecePlace.getValeur(i, j);
 				_solutionJeu[i + ligne][j + col] = casePiece;
 			}
@@ -113,18 +113,18 @@ bool camouflage::isMatch(int noPiece, int ligne, int col)
 				{
 					return false;
 				}
-				else if (_pieces[noPiece]->getValeur(i, j) == 'O' && _mapJeu[i + ligne][j + col] != 'B')
+				if (_pieces[noPiece]->getValeur(i, j) == 'O' && _mapJeu[i + ligne][j + col] != 'B')
 				{
 					return false;
 				}
-				else if (_pieces[noPiece]->getValeur(i, j) == 'P' && _mapJeu[i + ligne][j + col] == 'I')
+				/*else if (_pieces[noPiece]->getValeur(i, j) == 'P' && _mapJeu[i + ligne][j + col] == 'I')
 				{
 					return false;
 				}
 				else if (_pieces[noPiece]->getValeur(i, j) == 'O' && _mapJeu[i + ligne][j + col] == 'I')
 				{
 					return false;
-				}
+				}*/
 
 			}
 		}
@@ -148,7 +148,6 @@ void camouflage::retirerPiece(int noPiece, int ligne, int col)
 		{
 			if (piecePlace.siValide(i, j)) 
 			{
-
 				_solutionJeu[i + ligne][j + col] = "  ";
 			}
 		}
@@ -156,9 +155,19 @@ void camouflage::retirerPiece(int noPiece, int ligne, int col)
 		
 }
 
+/// <summary>
+/// Trouve la solution pour une map
+/// </summary>
+/// <param name="noPiece"></param>
+/// <returns></returns>
 bool camouflage::resoudre(int noPiece)
 {
-	if (noPiece == 6) return true;
+	assert(noPiece >= 0 && noPiece <= 6);
+
+	if (noPiece == 6)
+	{
+		return true;
+	}		
 	
 	for (int r = 0; r < 4; r++)
 	{
@@ -186,10 +195,25 @@ bool camouflage::resoudre(int noPiece)
 
 	
 	return false;
+	
+}
+
+/// <summary>
+/// Fonctionnement du jeu entier
+/// </summary>
+void camouflage::game()
+{
+	init();
+	_solutionner = resoudre();
+	afficherLaSolution();
 }
 
 void camouflage::afficherLaSolution()
 {
-	_solutionJeu.print(cout);
-	readSolution(_solutionJeu, "solutionNomNoMap.txt");
+	if (_solutionner)
+	{
+		_solutionJeu.print(cout);
+		readSolution(_solutionJeu, "solutionNomNoMap.txt");
+	}
+	
 }

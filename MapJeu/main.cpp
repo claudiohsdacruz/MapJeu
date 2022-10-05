@@ -15,9 +15,7 @@ void main() {
 	
 	camouflage game;
 	
-	game.init();
-	game.resoudre();
-	game.afficherLaSolution();
+	game.game();
 	
 	/*
 	cout << "3 Cases" << endl << endl;
