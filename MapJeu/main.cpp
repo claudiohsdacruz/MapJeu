@@ -14,27 +14,26 @@ void main() {
 
 	
 	camouflage game;
-	
-	game.game();
-	
-	/*
-	cout << "3 Cases" << endl << endl;
-	for (int r = 0; r < 4; r++) { //pour les 4 rotations
-		for (int i = 0; i < piece.size(); i++)//pour chaque pièce
-		{
-			piece[r]->afficher(cout);
-			cout << endl;
-			piece[i]->rotation();
-		}
-		cout << endl;
-	}
-	
-	
-	*/
+	char reponse;
 
-	/*
-	cout << "Voulez-vous relancer le jeux ? (o / n) : ";
-	cin >> finJeux;
-	*/
+	do
+	{
+		game.play();
+
+		do
+		{
+			cout << endl << "Voulez-vous relancer le jeux ? (o / n) : ";
+			cin >> reponse;
+
+			if (tolower(reponse) == 'n')
+			{
+				cout << endl << "Merci d'avoir joue! Aurevoir!" << endl;
+			}
+
+		} while (tolower(reponse) != 'n' && tolower(reponse) != 'o');
+		
+
+	} while (tolower(reponse) != 'n');
+	
 	system("pause > 0");
 }

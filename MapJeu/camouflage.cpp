@@ -1,5 +1,9 @@
+#include <fstream>
 #include "camouflage.h"
 
+/// <summary>
+/// Initialise la map, les pièces, et la solution
+/// </summary>
 void camouflage::init()
 {
 	initMap();
@@ -7,20 +11,26 @@ void camouflage::init()
 	initSolution();
 }
 
+/// <summary>
+/// Initialise la map
+/// </summary>
 void camouflage::initMap()
 {
-	string nomMap, nomFichier, solution;
+	string nomFichier, solution;
 
 	do
 	{
 		cout << endl << "Entrez le nom de la grille du jeu: ";
-		cin >> nomMap;
-		nomFichier = "map" + nomMap + ".txt";
+		cin >> _nomMap;
+		nomFichier = "map" + _nomMap + ".txt";
 	} while (!readFile(_mapJeu, nomFichier.c_str()));
 
 
 }
 
+/// <summary>
+/// Initialise la pièce
+/// </summary>
 void camouflage::initPiece()
 {
 	_pieces.resize(6);
@@ -30,16 +40,7 @@ void camouflage::initPiece()
 	_pieces[3] = new piece2Cases('X', 'P', 'P', '\0', '\0');//instance de la pièce X
 	_pieces[4] = new piece2Cases('Y', 'P', 'O', '\0', '\0');//instance de la pièce Y
 	_pieces[5] = new piece3Cases('Z', ' ', '\0', 'O', ' ');//instanxe de la pièce Z
-
-	//for (int i = 0; i < 6; i++)
-	//	for (int r = 0; r < 4; r++)
-	//	{
-	//		_pieces[i]->afficher(cout);
-	//		_pieces[i]->rotation();
-	//		cout << endl;
-	//	}
 }
-
 
 /// <summary>
 /// place la pièce dans la solution à l’index line et col reçu
@@ -47,21 +48,25 @@ void camouflage::initPiece()
 /// <param name="noPiece"></param>
 /// <param name="ligne"></param>
 /// <param name="col"></param>
-void camouflage::placerPiece(int noPiece, int ligne, int col)
+void camouflage::putPiece(int noPiece, int ligne, int col)
 {
 	piece piecePlace = *(_pieces[noPiece]);
 	string casePiece;
 
 	for (int i = 0; i < 2; i++)
+	{
 		for (int j = 0; j < 2; j++)
 		{
-			if (piecePlace.siValide(i, j)) {
+			if (piecePlace.siValide(i, j)) 
+			{
 				
 				casePiece = piecePlace.getNom();
 				casePiece += piecePlace.getValeur(i, j);
 				_solutionJeu[i + ligne][j + col] = casePiece;
 			}
 		}
+	}
+		
 }
 
 /// <summary>
@@ -139,7 +144,7 @@ bool camouflage::isMatch(int noPiece, int ligne, int col)
 /// <param name="noPiece"></param>
 /// <param name="ligne"></param>
 /// <param name="col"></param>
-void camouflage::retirerPiece(int noPiece, int ligne, int col)
+void camouflage::removePiece(int noPiece, int ligne, int col)
 {
 	piece piecePlace = *(_pieces[noPiece]);
 	for (int i = 0; i < 2; i++)
@@ -160,7 +165,7 @@ void camouflage::retirerPiece(int noPiece, int ligne, int col)
 /// </summary>
 /// <param name="noPiece"></param>
 /// <returns></returns>
-bool camouflage::resoudre(int noPiece)
+bool camouflage::resolve(int noPiece)
 {
 	assert(noPiece >= 0 && noPiece <= 6);
 
@@ -177,22 +182,22 @@ bool camouflage::resoudre(int noPiece)
 			{
 				if (isMatch(noPiece, i, j))
 				{
-					placerPiece(noPiece, i, j);
+					putPiece(noPiece, i, j);
 
-					if (resoudre(noPiece + 1))
+					if (resolve(noPiece + 1))
 					{
 						return true;
 					}
 					else
 					{
-						retirerPiece(noPiece, i, j);
+						removePiece(noPiece, i, j);
+					
 					}
 				}	
 			}
 		}
 		_pieces[noPiece]->rotation();
 	}
-
 	
 	return false;
 	
@@ -201,19 +206,29 @@ bool camouflage::resoudre(int noPiece)
 /// <summary>
 /// Fonctionnement du jeu entier
 /// </summary>
-void camouflage::game()
+void camouflage::play()
 {
 	init();
-	_solutionner = resoudre();
-	afficherLaSolution();
+	_solutionner = resolve();
+	printSolution();
 }
 
-void camouflage::afficherLaSolution()
+/// <summary>
+/// Afficher la solution trouvée
+/// </summary>
+void camouflage::printSolution()
 {
+	string nomFichier = "solution" + _nomMap + ".txt";
+
+	ofstream fichier(nomFichier);
+	
 	if (_solutionner)
 	{
-		_solutionJeu.print(cout);
-		readSolution(_solutionJeu, "solutionNomNoMap.txt");
+		_solutionJeu.print(fichier);
+		readSolution(_solutionJeu, nomFichier.c_str());
 	}
-	
+	else
+	{
+		cout << endl << "Il n'y a pas de solution pour cette map" << endl;
+	}	
 }

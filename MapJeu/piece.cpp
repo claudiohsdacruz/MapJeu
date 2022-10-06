@@ -132,7 +132,7 @@ piece2Cases::~piece2Cases()
 
 void piece2Cases::rotation()
 {
-	if (_piece[1][0].active)				//horizontal
+	if (_piece[0][1].active)				//horizontal
 		swap(_piece[0][1], _piece[1][0]);
 	else {									//vertical
 		casePiece temp = _piece[0][1];

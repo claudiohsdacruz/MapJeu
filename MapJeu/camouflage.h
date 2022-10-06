@@ -11,6 +11,7 @@ private:
 	map<string> _solutionJeu;
 	vecteur<piece*> _pieces;
 	bool _solutionner;
+	string _nomMap;
 
 public:
 	void init();
@@ -19,9 +20,9 @@ public:
 	void initSolution();
 
 	bool isMatch(int noPiece, int ligne, int col);
-	void placerPiece(int noPiece, int i, int j);
-	void retirerPiece(int noPiece, int ligne, int col);
-	bool resoudre(int noPiece = 0);
-	void afficherLaSolution();
-	void game();
+	void putPiece(int noPiece, int i, int j);
+	void removePiece(int noPiece, int ligne, int col);
+	bool resolve(int noPiece = 0);
+	void printSolution();
+	void play();
 };
