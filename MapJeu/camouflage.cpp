@@ -1,3 +1,10 @@
+/****************************************************************************************
+* Auteur	 : Claudio Henrique Soares da Cruz	et Maimouna Sarah Diakité				*
+* Nom		 : camouflage.cpp															*
+* Date		 : 07 octobre 2022															*
+* Description: Méthodes de la classe du jeu camouflage au pôle							*
+****************************************************************************************/
+
 #include <fstream>
 #include "camouflage.h"
 
@@ -43,38 +50,12 @@ void camouflage::initPiece()
 }
 
 /// <summary>
-/// place la pièce dans la solution à l’index line et col reçu
-/// </summary>
-/// <param name="noPiece"></param>
-/// <param name="ligne"></param>
-/// <param name="col"></param>
-void camouflage::putPiece(int noPiece, int ligne, int col)
-{
-	piece piecePlace = *(_pieces[noPiece]);
-	string casePiece;
-
-	for (int i = 0; i < 2; i++)
-	{
-		for (int j = 0; j < 2; j++)
-		{
-			if (piecePlace.siValide(i, j)) 
-			{
-				
-				casePiece = piecePlace.getNom();
-				casePiece += piecePlace.getValeur(i, j);
-				_solutionJeu[i + ligne][j + col] = casePiece;
-			}
-		}
-	}
-		
-}
-
-/// <summary>
 /// Initialise la map de la solution
 /// </summary>
 void camouflage::initSolution()
 {
 	_solutionJeu.resize(4, 4);
+
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 4; j++)
@@ -85,6 +66,37 @@ void camouflage::initSolution()
 }
 
 /// <summary>
+/// place la pièce dans la solution à l’index line et col reçu
+/// </summary>
+/// <param name="noPiece"></param>
+/// <param name="ligne"></param>
+/// <param name="col"></param>
+void camouflage::putPiece(int noPiece, int ligne, int col)
+{
+	assert(noPiece >= 0 && noPiece <= 6);
+	assert(ligne >= 0 && ligne <= _solutionJeu.nbLine());
+	assert(col >= 0 && col <= _solutionJeu.nbCol());
+
+	piece piecePlace = *(_pieces[noPiece]);
+	string casePiece;
+
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 2; j++)
+		{
+			if (piecePlace.siValide(i, j)) 
+			{
+				casePiece = piecePlace.getNom();
+				casePiece += piecePlace.getValeur(i, j);
+				_solutionJeu[i + ligne][j + col] = casePiece;
+			}
+		}
+	}
+		
+}
+
+
+/// <summary>
 /// Vérifie si la pièece est compatible avec la map à une certaine position
 /// </summary>
 /// <param name="noPiece"></param>
@@ -93,6 +105,10 @@ void camouflage::initSolution()
 /// <returns></returns>
 bool camouflage::isMatch(int noPiece, int ligne, int col)
 {
+	assert(noPiece >= 0 && noPiece <= 6);
+	assert(ligne >= 0 && ligne <= _solutionJeu.nbLine());
+	assert(col >= 0 && col <= _solutionJeu.nbCol());
+
 	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j < 2; j++)
@@ -109,27 +125,23 @@ bool camouflage::isMatch(int noPiece, int ligne, int col)
 					return false;
 				}
 
+				//Si position sur solutionJeu est egal à vide
 				if (_solutionJeu[i + ligne][j + col] != "  ")
 				{
 					return false;
 				}
 
+				//Si piece est 'P' et position sur la map n'est pas 'E'
 				if (_pieces[noPiece]->getValeur(i, j) == 'P' && _mapJeu[i + ligne][j + col] != 'E')
 				{
 					return false;
 				}
+
+				//Si piece est 'O' et position sur la map n'est pas 'B'
 				if (_pieces[noPiece]->getValeur(i, j) == 'O' && _mapJeu[i + ligne][j + col] != 'B')
 				{
 					return false;
 				}
-				/*else if (_pieces[noPiece]->getValeur(i, j) == 'P' && _mapJeu[i + ligne][j + col] == 'I')
-				{
-					return false;
-				}
-				else if (_pieces[noPiece]->getValeur(i, j) == 'O' && _mapJeu[i + ligne][j + col] == 'I')
-				{
-					return false;
-				}*/
 
 			}
 		}
@@ -146,6 +158,10 @@ bool camouflage::isMatch(int noPiece, int ligne, int col)
 /// <param name="col"></param>
 void camouflage::removePiece(int noPiece, int ligne, int col)
 {
+	assert(noPiece >= 0 && noPiece <= 6);
+	assert(ligne >= 0 && ligne <= _solutionJeu.nbLine() );
+	assert(col >= 0 && col <= _solutionJeu.nbCol());
+
 	piece piecePlace = *(_pieces[noPiece]);
 	for (int i = 0; i < 2; i++)
 	{
@@ -180,7 +196,7 @@ bool camouflage::resolve(int noPiece)
 		{
 			for (int j = 0; j < 4; j++) 
 			{
-				if (isMatch(noPiece, i, j))
+				if (isMatch(noPiece, i, j)) //Si la pièce match avec la map du jeu
 				{
 					putPiece(noPiece, i, j);
 

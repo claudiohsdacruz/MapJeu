@@ -1,8 +1,8 @@
 /****************************************************************************************
-* Auteur	 : Claudio Henrique Soares da Cruz		 									*
+* Auteur	 : Claudio Henrique Soares da Cruz et Maimouna Sarah Diakité				*
 * Nom		 : main.cpp																	*
-* Date		 : 07 octobre 2022														*
-* Description: Map du jeu Camouflage au pôle 													*
+* Date		 : 07 octobre 2022															*
+* Description: Jeu Camouflage au pôle 													*
 ****************************************************************************************/
 
 #include <iostream>
@@ -12,7 +12,6 @@
 
 void main() {
 
-	
 	camouflage game;
 	char reponse;
 
@@ -31,7 +30,6 @@ void main() {
 			}
 
 		} while (tolower(reponse) != 'n' && tolower(reponse) != 'o');
-		
 
 	} while (tolower(reponse) != 'n');
 	

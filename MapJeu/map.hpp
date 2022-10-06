@@ -1,7 +1,7 @@
 /****************************************************************************************
 * Auteur	 : Claudio Henrique Soares da Cruz		 									*
 * Nom		 : map.hpp																	*
-* Date		 : 07 octobre 2022														*
+* Date		 : 07 octobre 2022															*
 * Description: Génère un map générique dynamyque 										*
 ****************************************************************************************/
 
@@ -17,46 +17,45 @@ template <class TYPE>
 class map
 {
 private:
-	char* _name; //pointeur sur le nom de la map
-	TYPE** _map; //La map dynamique en ligne et colonne
-	int _nbLine, //nombre de ligne pour la matrice
-		_nbCol; //nombre de colonne pour la matrice
+	char* _name;														//pointeur sur le nom de la map
+	TYPE** _map;														//La map dynamique en ligne et colonne
+	int _nbLine,														//nombre de ligne pour la matrice
+		_nbCol;															//nombre de colonne pour la matrice
 public:
 	map();
 	map(const char* name, int line = 0, int col = 0);
 	~map();
 	map<TYPE>(const map<TYPE>& map);
-	void clear(); //clear la map et le nom
-	void clearMap(); //clear la map et remet les dimensions à 0
-	void clearName(); //clear le nom
+	void clear();														//clear la map et le nom
+	void clearMap();													//clear la map et remet les dimensions à 0
+	void clearName();													//clear le nom
 
 	//getteurs / setteurs
-	int nbLine()const; //retourne le nb de ligne
-	int nbCol()const; //retourne le nb de colonne
+	int nbLine()const;													//retourne le nb de ligne
+	int nbCol()const;													//retourne le nb de colonne
 
-	void resize(int nbLine, int nbCol); //resize la matrice avec les nouv. dims
-	TYPE& at(int posI, int posJ)const; //retourne une référence à l’élément
+	void resize(int nbLine, int nbCol);									//resize la matrice avec les nouv. dims
+	TYPE& at(int posI, int posJ)const;									//retourne une référence à l’élément
+																		////à la position i,j pour accéder ou modifier
+	const char* getName()const;											//retourne le nom de la map
+	void setName(const char* name);										//modifie le nom de la map
+	void print(ostream& sortie)const;									//print la matrice (sans le nom)
+	void read(istream& entree);											//lit la matrice de la map ds le flux
 
-	////à la position i,j pour accéder ou modifier
-	const char* getName()const; //retourne le nom de la map
-	void setName(const char* name); //modifie le nom de la map
-	void print(ostream& sortie)const; //print la matrice (sans le nom)
-	void read(istream& entree); //lit la matrice de la map ds le flux
-
-	const map<TYPE>& operator=(const map<TYPE>& map); //operateur d'affectations
-	TYPE*& operator[](int indline) const; //operateur []
+	const map<TYPE>& operator=(const map<TYPE>& map);					//operateur d'affectations
+	TYPE*& operator[](int indline) const;								//operateur []
 };
-template<class TYPE> //operateur pour lire un fichier
-inline bool readFile(map<TYPE>& mapLue, const char* nomFichier);
+template<class TYPE>												
+inline bool readFile(map<TYPE>& mapLue, const char* nomFichier);		//operateur pour lire un fichier
 
-template<class TYPE> //operateur pour lire un fichier
-inline bool readSolution(map<TYPE>& mapLue, const char* nomFichier);
+template<class TYPE>													
+inline bool readSolution(map<TYPE>& mapLue, const char* nomFichier);	//operateur pour lire un fichier
 
-template <class TYPE> //operateur de sortie
-ostream& operator<<(ostream& sortie, const map<TYPE>& m);
+template <class TYPE> 
+ostream& operator<<(ostream& sortie, const map<TYPE>& m);				//operateur de sortie
 
-template <class TYPE> //operateur d'entree
-istream& operator>>(istream& entree, map<TYPE>& m);
+template <class TYPE> 
+istream& operator>>(istream& entree, map<TYPE>& m);						//operateur d'entree
 
 
 //constructeur sans paramétres
@@ -66,7 +65,7 @@ inline map<TYPE>::map()
 	_name = nullptr;
 	_map = nullptr;
 	_nbLine = 0,
-		_nbCol = 0;
+	_nbCol = 0;
 }
 
 //constructeur avec paramétres
@@ -79,13 +78,14 @@ inline map<TYPE>::map(const char* name, int nbLine, int nbCol)
 		_nbLine = nbLine;
 		_nbCol = nbCol;
 
-		_map = new TYPE * [_nbLine];				//génère un vecteur de pointeur de dimension "nbLine"
-		for (int i = 0; i < _nbLine; i++)	//génère "nbLine" vecteurs de pointeur de dimension "nbCol"
+		_map = new TYPE * [_nbLine];			//génère un vecteur de pointeur de dimension "nbLine"
+
+		for (int i = 0; i < _nbLine; i++)		//génère "nbLine" vecteurs de pointeur de dimension "nbCol"
 		{
 			*(_map + i) = new TYPE[_nbCol];
 		}
 	}
-	else {									//si "nbLine" = 0 et "nbCol" = 0, génère un map sans paramétre 
+	else {										//si "nbLine" = 0 et "nbCol" = 0, génère un map sans paramétre 
 		_nbCol = _nbLine = 0;
 		_map = nullptr;
 	}
@@ -114,6 +114,7 @@ inline map<TYPE>::map<TYPE>(const map<TYPE>& mapCopie)
 		{
 			*(_map + i) = new TYPE[_nbCol];
 		}
+
 		for (int i = 0; i < _nbLine; i++)
 		{
 			for (int j = 0; j < _nbCol; j++)
@@ -122,7 +123,7 @@ inline map<TYPE>::map<TYPE>(const map<TYPE>& mapCopie)
 			}
 		}
 	}
-	else {									//si "nbLine" = 0 et "nbCol" = 0, génère un map sans paramétre 
+	else {								//si "nbLine" = 0 et "nbCol" = 0, génère un map sans paramétre 
 		_nbCol = _nbLine = 0;
 		_map = nullptr;
 	}
@@ -141,7 +142,7 @@ inline void map<TYPE>::clear()
 template<class TYPE>
 inline void map<TYPE>::clearMap()
 {
-	for (int i = 0; i < _nbLine; i++) //on delete les lignes du map avant de detruire le map
+	for (int i = 0; i < _nbLine; i++)	//on delete les lignes du map avant de detruire le map
 	{
 		delete[] * (_map + i);
 	}
@@ -166,6 +167,7 @@ inline int map<TYPE>::nbLine() const
 {
 	return _nbLine;
 }
+
 //retourne le nb de colonne
 template<class TYPE>
 inline int map<TYPE>::nbCol() const
@@ -182,7 +184,7 @@ inline void map<TYPE>::resize(int nbLine, int nbCol)
 	TYPE** newmap = nullptr;
 
 	if (nbLine > 0 && nbCol > 0) {
-		newmap = new TYPE * [nbLine];				//création d'une nouvelle map
+		newmap = new TYPE * [nbLine];						//création d'une nouvelle map
 		for (int i = 0; i < nbLine; i++)
 		{
 			*(newmap + i) = new TYPE[nbCol];

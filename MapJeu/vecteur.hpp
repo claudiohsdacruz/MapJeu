@@ -1,8 +1,9 @@
-/*Auteur	: Maimouna Sarah Diakité
-* Date		: 09/09/2022
-* Programme	: vecteur.hpp
-* But		: Template d'un vecteur dynamique qui peut stocker tout type de données
-*/
+/****************************************************************************************
+* Auteur	 : Maimouna Sarah Diakité													*
+* Nom		 : camouflage.h																*
+* Date		 : 07 octobre 2022															*
+* Description: Template d'un vecteur dynamique qui peut stocker tout type de données	*
+****************************************************************************************/
 
 #pragma once
 #include <assert.h>
