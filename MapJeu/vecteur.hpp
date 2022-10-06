@@ -30,26 +30,25 @@ public:
 	vecteur(const vecteur& v);
 
 	void print(std::ostream& sortie)const;
-	void push_back(int element);
+	void push_back(const TYPE& element);
 
-	//Getter
+	//Getter/setter
 	int size()const;
-
-	//setter
 	void resize(int newDim);
 
-	//Methodes
-	TYPE& at(int pos);
+	TYPE& at(int pos)const;
+	TYPE& operator[](int pos)const;
+
 	template <class TYPE>
 	friend void swap(vecteur<TYPE>& v1, vecteur<TYPE>& v2);
 	void reverse();
 	void reverseRecursive(int pos = 0);
 
 	//Opérateurs
-	TYPE& operator[](int pos);
+	
 	const vecteur<TYPE>& operator=(const vecteur<TYPE>& v);
 	bool operator==(const vecteur<TYPE>& v)const;
-	vecteur<TYPE> operator+(const vecteur<TYPE>& v);
+	vecteur<TYPE> operator+(const vecteur<TYPE>& v)const;
 	const vecteur<TYPE>& operator+=(const vecteur<TYPE>& v);
 
 };
@@ -58,7 +57,7 @@ template <class TYPE>
 std::ostream& operator<<(std::ostream& sortie, const vecteur<TYPE>& v);
 
 /// <summary>
-/// Constructeur sans paramètre
+/// Construit un vecteur vide
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
 
@@ -71,7 +70,7 @@ vecteur<TYPE>::vecteur()
 }
 
 /// <summary>
-/// Constructeur avec paramètre
+/// Construit un vecteur de taille dynamique
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
 /// <param name="dim"></param>
@@ -80,6 +79,7 @@ template <class TYPE>
 vecteur<TYPE>::vecteur(int dim)
 {
 	assert(dim >= 0);
+
 	if (dim > 0)
 	{
 		_tab = new TYPE[dim];
@@ -101,6 +101,19 @@ template <class TYPE>
 vecteur<TYPE>::~vecteur()
 {
 	clear();
+}
+
+/// <summary>
+///Permer d'effacer un vecteur
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+
+template <class TYPE>
+void vecteur<TYPE>::clear()
+{
+	delete[]_tab;
+	_tab = nullptr;
+	_dim = 0;
 }
 
 /// <summary>
@@ -128,7 +141,7 @@ vecteur<TYPE>::vecteur(const vecteur<TYPE>& v)
 }
 
 /// <summary>
-/// Méthode qui permet d'afficher le contenu d'un vecteur
+/// Permet d'afficher le contenu d'un vecteur
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
 /// <param name="sortie"></param>
@@ -143,7 +156,7 @@ void vecteur<TYPE>::print(ostream& sortie)const
 }
 
 /// <summary>
-/// Opérateur qui permet d'afficher le contenu d'un vecteur
+/// Permet d'afficher le contenu d'un vecteur
 /// Elle réutilise la méthode print(...)
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
@@ -159,37 +172,32 @@ ostream& operator<<(ostream& sortie, const vecteur<TYPE>& v)
 }
 
 /// <summary>
-/// Méthode qui permet d'ajouter des éléments à un vecteur
+/// Permet d'ajouter des éléments à un vecteur
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
 /// <param name="element"></param>
 
 template <class TYPE>
-void vecteur<TYPE>::push_back(int element)
-{
-	//Création de tableau temporaire avec un taille plus grande de 1
-	TYPE* _newTab = new TYPE[_dim + 1];
-
-	//Affectation du contenu de l'ancien tableau au nouveau
-	for (int i = 0; i < _dim; i++)
+void vecteur<TYPE>::push_back(const TYPE& element)
+{							
+	TYPE* _newTab = new TYPE[_dim + 1];										//Création de tableau temporaire avec un taille plus grande de 1
+		
+	for (int i = 0; i < _dim; i++)											//Affectation du contenu de l'ancien tableau au nouveau
 	{
 		*(_newTab + i) = *(_tab + i);
 	}
-	//Ajout du nouvel élément au nouveau tableau
-	*(_newTab + _dim) = element;
 
-	//Suppression de l'ancien tableau
-	delete[]_tab;
+	*(_newTab + _dim) = element;											//Ajout du nouvel élément au nouveau tableau
 
-	//Affectation de l'adresse du nouveau tableau à l'ancien (ancien tableau = nouveau tableau)
-	_tab = _newTab;
-	//augmentation de la taille de l'ancien tableau
-	_dim++;
+	delete[]_tab;													
+
+	_tab = _newTab;															
+	_dim++;																	
 
 }
 
 /// <summary>
-/// Méthode qui permet de récuperer la taille du vecteur
+/// Permet de récuperer la taille du vecteur
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
 /// <returns></returns>
@@ -201,7 +209,7 @@ int vecteur<TYPE>::size()const
 }
 
 /// <summary>
-/// Méthode pour changer la taille d'un vecteur
+/// Permet de change la taille d'un vecteur
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
 /// <param name="newDim"></param>
@@ -216,6 +224,7 @@ void vecteur<TYPE>::resize(int newDim)
 		clear();
 		return;
 	}
+
 	TYPE* newTab = new TYPE[newDim];
 
 	for (int i = 0; i < _dim && i < newDim; i++)	//copie les éléments pour le plus petit
@@ -229,27 +238,14 @@ void vecteur<TYPE>::resize(int newDim)
 }
 
 /// <summary>
-/// Methoe pour éffacer un vecteur
-/// </summary>
-/// <typeparam name="TYPE"></typeparam>
-
-template <class TYPE>
-void vecteur<TYPE>::clear()
-{
-	delete[]_tab;
-	_tab = nullptr;
-	_dim = 0;
-}
-
-/// <summary>
-/// Méthode pour accéder à un élément du vecteur
+/// Permet d'accéder à un élément du vecteur
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
 /// <param name="pos">Positision de l'élément auquel on veut accéder</param>
 /// <returns></returns>
 
 template <class TYPE>
-TYPE& vecteur<TYPE>::at(int pos)
+TYPE& vecteur<TYPE>::at(int pos)const
 {
 	assert(pos >= 0 && pos < _dim);
 
@@ -257,20 +253,20 @@ TYPE& vecteur<TYPE>::at(int pos)
 }
 
 /// <summary>
-/// opérateur qui permet d'accéder à un élément du vecteur
+/// Permet d'accéder à un élément du vecteur
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
 /// <param name="pos">position de l'élément auquel onj veut accéder</param>
 /// <returns></returns>
 
 template <class TYPE>
-TYPE& vecteur<TYPE>::operator[](int pos)
+TYPE& vecteur<TYPE>::operator[](int pos)const
 {
 	return at(pos);
 }
 
 /// <summary>
-/// Operateur qui permet d'affecter la valeur d'un vecteur à un autre
+/// Permet d'affecter la valeur d'un vecteur à un autre
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
 /// <param name="v">Vecteur que l'on veut affecter à un autre vecteur</param>
@@ -283,6 +279,7 @@ const vecteur<TYPE>& vecteur<TYPE>::operator=(const vecteur<TYPE>& v)
 		return *this;
 
 	clear();
+
 	if (v._dim > 0) {
 		_dim = v._dim;
 		_tab = new TYPE[v._dim];
@@ -295,7 +292,7 @@ const vecteur<TYPE>& vecteur<TYPE>::operator=(const vecteur<TYPE>& v)
 }
 
 /// <summary>
-/// Operateur qui permet de comparer deux vecteur (Vérifier si ils sont égaux)
+/// permet de comparer deux vecteur (Vérifier si ils sont égaux)
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
 /// <param name="v"></param>
@@ -304,46 +301,41 @@ const vecteur<TYPE>& vecteur<TYPE>::operator=(const vecteur<TYPE>& v)
 template <class TYPE>
 bool vecteur<TYPE>::operator==(const vecteur<TYPE>& v)const
 {
-	if (_dim == 0 && v._dim == 0) //si les deux vecteurs sont vides (taille = 0 <=> vecteur vide)
+	if (_dim != v._dim) 
 	{
-		return true;
+		return false;
 	}
 
-	for (int i = 0; i < _dim && i < v._dim; i++)
+	for (int i = 0; i < _dim ; i++)
 	{
-		if (*_tab == *v._tab)
-		{
-			return true;
-		}
-		else
+		if (*(_tab + i) != *(v._tab + i))
 		{
 			return false;
 		}
 	}
+	return true;
 
 }
 
 /// <summary>
-/// operateur qui permet de concatener deux vecteurs
+/// Permet de concatener deux vecteurs
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
 /// <param name="v"></param>
 /// <returns></returns>
 
 template <class TYPE>
-vecteur<TYPE> vecteur<TYPE>::operator+(const vecteur<TYPE>& v)
+vecteur<TYPE> vecteur<TYPE>::operator+(const vecteur<TYPE>& v)const
 {
 	int j = 0;
-	vecteur<TYPE> newVecteur;
-	newVecteur._dim = v._dim + _dim;
-	newVecteur._tab = new TYPE[newVecteur._dim];
+	vecteur<TYPE> newVecteur(v._dim + _dim);
 
-	for (int i = 0; i < _dim; i++)
+	for (int i = 0; i < _dim; i++)							//Copie les éléments du premier vecteur
 	{
 		*(newVecteur._tab + i) = *(_tab + i);
 	}
 
-	for (int i = _dim; i < newVecteur._dim; i++)
+	for (int i = _dim; i < newVecteur._dim; i++)			//Copie les éléments du deuxième vecteur à la suite des autres
 	{
 		*(newVecteur._tab + i) = *(v._tab + j);
 		j++;
@@ -353,7 +345,7 @@ vecteur<TYPE> vecteur<TYPE>::operator+(const vecteur<TYPE>& v)
 }
 
 /// <summary>
-/// Operateur qui permet de concatener deux vecteurs et d'affecter 
+/// Permet de concatener deux vecteurs et d'affecter 
 /// la concatenation au vecteur implicite
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
@@ -376,7 +368,7 @@ const vecteur<TYPE>& vecteur<TYPE>::operator+=(const vecteur<TYPE>& v)
 }
 
 /// <summary>
-/// Méthode qui permet d'échanger le contenu et l'adresse de deux vecteurs
+/// Permet d'échanger le contenu et l'adresse de deux vecteurs
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
 /// <param name="v1"></param>
@@ -399,7 +391,7 @@ void swap(vecteur<TYPE>& v1, vecteur<TYPE>& v2)
 }
 
 /// <summary>
-/// Méthode qui permet d'inverser l'ordre des éléments d'un vecteur
+/// Permet d'inverser l'ordre des éléments d'un vecteur
 /// de façon itérative (ex:le dernier élément devient le premier)
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
@@ -417,7 +409,7 @@ void vecteur<TYPE>::reverse()
 }
 
 /// <summary>
-/// Méthode qui permet d'inverser l'ordre des éléments d'un vecteur
+/// Permet d'inverser l'ordre des éléments d'un vecteur
 /// de façon récursive (ex:le dernier élément devient le premier)
 /// </summary>
 /// <typeparam name="TYPE"></typeparam>
@@ -425,7 +417,7 @@ void vecteur<TYPE>::reverse()
 template <class TYPE>
 void vecteur<TYPE>::reverseRecursive(int pos)
 {
-
+	assert(pos >= 0 && pos <= _dim);
 	if (pos == _dim / 2)
 	{
 		return;

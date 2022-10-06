@@ -75,7 +75,7 @@ void piece::setValeur(int ligne, int col, char valeur)
 }
 
 /// <summary>
-/// Méthode qui permet d'initialiser une pièce
+/// Permet d'initialiser une pièce
 /// </summary>
 /// <param name="nom"></param>
 /// <param name="valeur1"></param>
@@ -97,7 +97,7 @@ void piece::init(char nom, char valeur1, char valeur2, char valeur3, char valeur
 }
 
 /// <summary>
-/// Méthode qui permet d'afficher la pièce
+/// Permet d'afficher la pièce
 /// </summary>
 /// <param name="sortie"></param>
 void piece::afficher(ostream& sortie)const
@@ -116,7 +116,7 @@ void piece::afficher(ostream& sortie)const
 }
 
 /// <summary>
-/// Opérateur qui permet d'afficher la pièce
+/// Permet d'afficher la pièce
 /// </summary>
 /// <param name="sortie"></param>
 /// <param name="p"></param>

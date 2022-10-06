@@ -31,12 +31,12 @@ public:
 	void setValeur(int ligne, int col, char valeur);									//Change la valeur d'une case
 
 	//Méthodes
-	void init(char nom, char valeur1, char valeur2, char valeur3, char valeur4);		//Méthode qui permet d'initialiser une pièce
-	void afficher(std::ostream& sortie) const;											//Méthode qui permet d'afficher la pièce
+	void init(char nom, char valeur1, char valeur2, char valeur3, char valeur4);		//Permet d'initialiser une pièce
+	void afficher(std::ostream& sortie) const;											//Permet d'afficher la pièce
 
 	virtual void rotation() {};															
 };
-std::ostream& operator<<(std::ostream& sortie, const piece& p);							//Opérateur qui permet d'afficher la pièce
+std::ostream& operator<<(std::ostream& sortie, const piece& p);							//Permet d'afficher la pièce
 
 //Classes enfant
 class piece2Cases : public piece {
