@@ -257,13 +257,13 @@ void map<TYPE>::print(ostream& sortie) const
 	}
 }
 
-//operateur d'affichage
+//operateur d'enregistrement
 template<class TYPE>
 void map<TYPE>::writeFile(ostream& sortie) const
 {
 	assert(_map != nullptr);
 
-	sortie << _nbLine << "," << _nbCol << endl;
+	sortie << _nbLine << " " << _nbCol << endl << endl;
 	for (int i = 0; i < _nbLine; i++)
 	{
 		for (int j = 0; j < _nbCol; j++)
