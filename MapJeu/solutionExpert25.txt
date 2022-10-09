@@ -1,5 +1,5 @@
 4, 4
-UO, U , Z , ZO, 
-WO, UP, XP, Z , 
-W , WP, XP, VO, 
-YO, YP, V , VP, 
+UO,U ,Z ,ZO
+WO,UP,XP,Z 
+W ,WP,XP,VO
+YO,YP,V ,VP
