@@ -2,7 +2,7 @@
 * Auteur	 : Claudio Henrique Soares da Cruz et Maimouna Sarah Diakité				*
 * Nom		 : main.cpp																	*
 * Date		 : 07 octobre 2022															*
-* Description: Jeu Camouflage au pôle 													*
+* Description: Initialize et applique le contrôle général du jeu camouflage au pôle.	*
 ****************************************************************************************/
 
 #include <iostream>
@@ -12,9 +12,11 @@
 
 void main() {
 
+	//initialize le jeu
 	camouflage game;
 	char reponse;
 
+	//fait le contrôle du derroulement du jeu
 	do
 	{
 		game.play();
@@ -27,6 +29,10 @@ void main() {
 			if (tolower(reponse) == 'n')
 			{
 				cout << endl << "Merci d'avoir joue! Aurevoir!" << endl;
+			}
+			else
+			{
+				system("cls");
 			}
 
 		} while (tolower(reponse) != 'n' && tolower(reponse) != 'o');

@@ -1,8 +1,11 @@
 /****************************************************************************************
 * Auteur	 : Claudio Henrique Soares da Cruz et Maimouna Sarah Diakité				*
-* Nom		 : piece.h																	*
+* Nom		 : piece.cpp																*
 * Date		 : 07 octobre 2022															*
-* Description: Pièces utilisée pour jouer au jeu camouflage au pôle						*
+* Description: Les pièces sont representées par um map de char à deux dimension. Chaque *
+*			   element de la pièce est identifier pour un char different: les espaces	*
+*			   vides (' '), l'ours (O), le poisson (P) ou sans valeur ('\0'). Pour ce	*
+*			   jeu on a deux pièces à deux case et quatre pièces à trois cases			*
 ****************************************************************************************/
 
 #pragma once

@@ -1,8 +1,11 @@
 /****************************************************************************************
-* Auteur	 : Claudio Henrique Soares da Cruz et Maimouna Sarah Diakité				*
-* Nom		 : camouflage.h																*
+* Auteur	 : Claudio Henrique Soares da Cruz	et Maimouna Sarah Diakité				*
+* Nom		 : camouflage.cpp															*
 * Date		 : 07 octobre 2022															*
-* Description: Classe du jeu camouflage au pôle											*
+* Description: Le jeu camouflage au pôle consiste en placez les pièces sur le tableau	*
+			   de sorte que tous les ours polaires reviennent sur leur banquise et les	*
+			   poissons dans l’eau. Ce jeu comporte 6 pièces de puzzle transparentes et	*
+			   48 formidables défis dedifficulté croissante.							*
 ****************************************************************************************/
 
 #pragma once

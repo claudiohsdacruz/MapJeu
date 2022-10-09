@@ -2,7 +2,7 @@
 * Auteur	 : Claudio Henrique Soares da Cruz		 									*
 * Nom		 : map.hpp																	*
 * Date		 : 07 octobre 2022															*
-* Description: Génère un map générique dynamyque 										*
+* Description: Génère un map générique dynamyque à 2 dimensions	et avec un nom de map.	*									*
 ****************************************************************************************/
 
 #pragma once
@@ -40,6 +40,7 @@ public:
 	const char* getName()const;											//retourne le nom de la map
 	void setName(const char* name);										//modifie le nom de la map
 	void print(ostream& sortie)const;									//print la matrice (sans le nom)
+	void writeFile(ostream& sortie) const;								//enregistre la matrice dans un fichier
 	void read(istream& entree);											//lit la matrice de la map ds le flux
 
 	const map<TYPE>& operator=(const map<TYPE>& map);					//operateur d'affectations
@@ -242,7 +243,7 @@ inline void map<TYPE>::setName(const char* name)
 
 //operateur d'affichage
 template<class TYPE>
-inline void map<TYPE>::print(ostream& sortie) const
+void map<TYPE>::print(ostream& sortie) const
 {
 	assert(_map != nullptr);
 
@@ -251,6 +252,26 @@ inline void map<TYPE>::print(ostream& sortie) const
 		for (int j = 0; j < _nbCol; j++)
 		{
 			sortie << std::setw(4) << *(*(_map + i) + j) << " ";
+		}
+		sortie << endl;
+	}
+}
+
+//operateur d'affichage
+template<class TYPE>
+void map<TYPE>::writeFile(ostream& sortie) const
+{
+	assert(_map != nullptr);
+
+	sortie << _nbLine << "," << _nbCol << endl;
+	for (int i = 0; i < _nbLine; i++)
+	{
+		for (int j = 0; j < _nbCol; j++)
+		{
+			if (j < (_nbCol - 1))
+				sortie << *(*(_map + i) + j) << ",";
+			else
+				sortie << *(*(_map + i) + j);
 		}
 		sortie << endl;
 	}
@@ -357,11 +378,11 @@ template<class TYPE>
 inline bool readSolution(map<TYPE>& mapLue, const char* nomFichier)
 {
 	ifstream fichier(nomFichier); //ouverture du ficher
-	int nbLine = 4, nbCol = 4;
+	int nbLine, nbCol;
 	if (fichier.is_open())
 	{
 		mapLue.setName(nomFichier);
-		//fichier >> nbLine >> nbCol;
+		fichier >> nbLine >> nbCol;
 		mapLue.resize(nbLine, nbCol);
 		cout << endl << "Contenu de la grille solutionee ./MapJeu/" << nomFichier << " :" << endl << endl;
 		fichier >> mapLue; //lecture de la matrice

@@ -2,7 +2,10 @@
 * Auteur	 : Claudio Henrique Soares da Cruz	et Maimouna Sarah Diakité				*
 * Nom		 : camouflage.cpp															*
 * Date		 : 07 octobre 2022															*
-* Description: Méthodes de la classe du jeu camouflage au pôle							*
+* Description: Le jeu camouflage au pôle consiste en placez les pièces sur le tableau	*
+			   de sorte que tous les ours polaires reviennent sur leur banquise et les	*
+			   poissons dans l’eau. Ce jeu comporte 6 pièces de puzzle transparentes et	*
+			   48 formidables défis dedifficulté croissante.							*
 ****************************************************************************************/
 
 #include <fstream>
@@ -196,7 +199,8 @@ bool camouflage::resolve(int noPiece)
 		{
 			for (int j = 0; j < 4; j++) 
 			{
-				if (isMatch(noPiece, i, j)) //Si la pièce match avec la map du jeu
+				//Si la pièce match avec la map du jeu il place la pièce sinon il retire la pièce
+				if (isMatch(noPiece, i, j)) 
 				{
 					putPiece(noPiece, i, j);
 
@@ -240,7 +244,7 @@ void camouflage::printSolution()
 	
 	if (_solutionner)
 	{
-		_solutionJeu.print(fichier);
+		_solutionJeu.writeFile(fichier);
 		readSolution(_solutionJeu, nomFichier.c_str());
 	}
 	else

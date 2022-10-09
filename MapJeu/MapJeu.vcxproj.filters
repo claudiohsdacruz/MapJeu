@@ -32,9 +32,6 @@
     <Text Include="mapExpert25.txt">
       <Filter>Fichiers de ressources</Filter>
     </Text>
-    <Text Include="solutionExpert25.txt">
-      <Filter>Fichiers de ressources</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camouflage.h">

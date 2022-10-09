@@ -146,7 +146,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="mapExpert25.txt" />
-    <Text Include="solutionExpert25.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camouflage.h" />

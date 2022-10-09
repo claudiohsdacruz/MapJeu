@@ -2,7 +2,7 @@
 * Auteur	 : Maimouna Sarah Diakité													*
 * Nom		 : camouflage.h																*
 * Date		 : 07 octobre 2022															*
-* Description: Template d'un vecteur dynamique qui peut stocker tout type de données	*
+* Description: Template d'un vecteur dynamique qui peut stocker tout type de données.	*
 ****************************************************************************************/
 
 #pragma once

@@ -2,7 +2,10 @@
 * Auteur	 : Claudio Henrique Soares da Cruz et Maimouna Sarah Diakité				*
 * Nom		 : piece.cpp																*
 * Date		 : 07 octobre 2022															*
-* Description: Méthode de la classe pièce utilisée pour jouer au jeu camouflage au pôle	*
+* Description: Les pièces sont representées par um map de char de deux dimension. Chaque*
+*			   pièce  *
+*			   peut avoir des espaces vides, representé par un ours (O), par un poisson *
+*			   (P), ou sans valeur 
 ****************************************************************************************/
 
 #include <iostream>
