@@ -161,6 +161,7 @@ piece2Cases::~piece2Cases()
 	init('\0', '\0', '\0', '\0', '\0');
 }
 
+
 /// <summary>
 /// Fait tourner la pièce
 /// </summary>

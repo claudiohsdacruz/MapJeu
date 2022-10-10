@@ -2,7 +2,7 @@
 * Auteur	 : Claudio Henrique Soares da Cruz		 									*
 * Nom		 : map.hpp																	*
 * Date		 : 07 octobre 2022															*
-* Description: Génère un map générique dynamyque à 2 dimensions	et avec un nom de map.	*									*
+* Description: Génère un map générique dynamyque à 2 dimensions	et avec un nom de map.	*									
 ****************************************************************************************/
 
 #pragma once
@@ -59,8 +59,10 @@ ostream& operator<<(ostream& sortie, const map<TYPE>& m);				//operateur de sort
 template <class TYPE> 
 istream& operator>>(istream& entree, map<TYPE>& m);						//operateur d'entree
 
-
-//constructeur sans paramétres
+/// <summary>
+/// constructeur sans paramétres
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
 template<class TYPE>
 inline map<TYPE>::map()
 {
@@ -70,7 +72,13 @@ inline map<TYPE>::map()
 	_nbCol = 0;
 }
 
-//constructeur avec paramétres
+/// <summary>
+/// constructeur avec paramétres
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <param name="name"></param>
+/// <param name="nbLine"></param>
+/// <param name="nbCol"></param>
 template<class TYPE>
 inline map<TYPE>::map(const char* name, int nbLine, int nbCol)
 {
@@ -94,14 +102,21 @@ inline map<TYPE>::map(const char* name, int nbLine, int nbCol)
 	setName(name);
 }
 
-//destructeur
+/// <summary>
+/// destructeur
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
 template<class TYPE>
 map<TYPE>::~map()
 {
 	clear();
 }
 
-//copieur
+/// <summary>
+/// Constructeur de copie
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <param name="mapCopie"></param>
 template<class TYPE>
 map<TYPE>::map<TYPE>(const map<TYPE>& mapCopie)
 {
@@ -132,7 +147,11 @@ map<TYPE>::map<TYPE>(const map<TYPE>& mapCopie)
 	setName(mapCopie._name);
 }
 
-//clear la map et le nom
+
+/// <summary>
+/// clear la map et le nom
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
 template<class TYPE>
 void map<TYPE>::clear()
 {
@@ -140,7 +159,10 @@ void map<TYPE>::clear()
 	clearName();
 }
 
-//clear la map et remet les dimensions à 0
+/// <summary>
+/// clear la map et remet les dimensions à 0
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
 template<class TYPE>
 void map<TYPE>::clearMap()
 {
@@ -155,7 +177,10 @@ void map<TYPE>::clearMap()
 		_nbCol = 0;
 }
 
-//clear le nom
+/// <summary>
+/// clear le nom
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
 template<class TYPE>
 void map<TYPE>::clearName()
 {
@@ -163,21 +188,34 @@ void map<TYPE>::clearName()
 	_name = nullptr;
 }
 
-//retourne le nb de ligne
+/// <summary>
+/// retourne le nb de ligne
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <returns></returns>
 template<class TYPE>
 int map<TYPE>::nbLine() const
 {
 	return _nbLine;
 }
 
-//retourne le nb de colonne
+/// <summary>
+/// retourne le nb de colonne
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <returns></returns>
 template<class TYPE>
 int map<TYPE>::nbCol() const
 {
 	return _nbCol;
 }
 
-//resize la matrice avec les nouv. dims
+/// <summary>
+/// resize la matrice avec les nouv. dims
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <param name="nbLine"></param>
+/// <param name="nbCol"></param>
 template<class TYPE>
 void map<TYPE>::resize(int nbLine, int nbCol)
 {
@@ -208,7 +246,13 @@ void map<TYPE>::resize(int nbLine, int nbCol)
 	_nbCol = nbCol;
 }
 
-//retourne une référence à l’élément
+/// <summary>
+/// retourne une référence à l’élément
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <param name="posI"></param>
+/// <param name="posJ"></param>
+/// <returns></returns>
 template<class TYPE>
 TYPE& map<TYPE>::at(int posI, int posJ) const
 {
@@ -218,7 +262,11 @@ TYPE& map<TYPE>::at(int posI, int posJ) const
 	return *(*(_map + posI) + posJ);
 }
 
-//retourne le nom de la map
+/// <summary>
+/// retourne le nom de la map
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <returns></returns>
 template<class TYPE>
 const char* map<TYPE>::getName() const
 {
@@ -228,7 +276,11 @@ const char* map<TYPE>::getName() const
 	return _name;
 }
 
-//modifie le nom de la map
+/// <summary>
+/// modifie le nom de la map
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <param name="name"></param>
 template<class TYPE>
 void map<TYPE>::setName(const char* name)
 {
@@ -242,7 +294,11 @@ void map<TYPE>::setName(const char* name)
 	}
 }
 
-//operateur d'affichage
+/// <summary>
+/// operateur d'affichage
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <param name="sortie"></param>
 template<class TYPE>
 void map<TYPE>::print(ostream& sortie) const
 {
@@ -258,7 +314,11 @@ void map<TYPE>::print(ostream& sortie) const
 	}
 }
 
-//enregistrement de la solution dans le fichier 
+/// <summary>
+/// enregistrement de la solution dans le fichier 
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <param name="sortie"></param>
 template<class TYPE>
 void map<TYPE>::writeFile(ostream& sortie) const
 {
@@ -280,7 +340,13 @@ void map<TYPE>::writeFile(ostream& sortie) const
 	}
 }
 
-//operateur de sortie
+/// <summary>
+/// operateur de sortie
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <param name="sortie"></param>
+/// <param name="m"></param>
+/// <returns></returns>
 template<class TYPE>
 ostream& operator<<(ostream& sortie, const map<TYPE>& m)
 {
@@ -288,7 +354,11 @@ ostream& operator<<(ostream& sortie, const map<TYPE>& m)
 	return sortie;
 }
 
-//operateur pour lire un fichier
+/// <summary>
+/// operateur pour lire un fichier
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <param name="entree"></param>
 template<class TYPE>
 void map<TYPE>::read(istream& entree)
 {
@@ -303,7 +373,12 @@ void map<TYPE>::read(istream& entree)
 	}
 }
 
-//operateur de afectation
+/// <summary>
+/// operateur de afectation
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <param name="mapCopie"></param>
+/// <returns></returns>
 template<class TYPE>
 const map<TYPE>& map<TYPE>::operator=(const map<TYPE>& mapCopie)
 {
@@ -338,7 +413,12 @@ const map<TYPE>& map<TYPE>::operator=(const map<TYPE>& mapCopie)
 	return *this;
 }
 
-//operateur []
+/// <summary>
+/// operateur []
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <param name="indLine"></param>
+/// <returns></returns>
 template<class TYPE>
 TYPE*& map<TYPE>::operator[](int indLine) const
 {
@@ -347,8 +427,13 @@ TYPE*& map<TYPE>::operator[](int indLine) const
 	return *(_map + indLine);
 }
 
-
-//operator d'entree de données
+/// <summary>
+/// operator d'entree de données
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <param name="entree"></param>
+/// <param name="m"></param>
+/// <returns></returns>
 template<class TYPE>
 istream& operator>>(istream& entree, map<TYPE>& m)
 {
@@ -356,7 +441,14 @@ istream& operator>>(istream& entree, map<TYPE>& m)
 	return entree;
 }
 
-//fonction d’ouverture du fichier contenant la matrice
+
+/// <summary>
+/// fonction d’ouverture du fichier contenant la matrice
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <param name="mapLue"></param>
+/// <param name="nomFichier"></param>
+/// <returns></returns>
 template<class TYPE>
 bool readFile(map<TYPE>& mapLue, const char* nomFichier) {
 	
@@ -378,7 +470,13 @@ bool readFile(map<TYPE>& mapLue, const char* nomFichier) {
 	return false;
 }
 
-//lire le fichier solution
+/// <summary>
+/// lire le fichier solution
+/// </summary>
+/// <typeparam name="TYPE"></typeparam>
+/// <param name="mapLue"></param>
+/// <param name="nomFichier"></param>
+/// <returns></returns>
 template<class TYPE>
 bool readSolution(map<TYPE>& mapLue, const char* nomFichier)
 {

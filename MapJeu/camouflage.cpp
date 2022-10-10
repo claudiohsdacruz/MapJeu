@@ -30,7 +30,7 @@ void camouflage::initMap()
 
 	do
 	{
-		cout << endl << "Entrez le nom de la grille du jeu: ";
+		cout << endl << "Entrez la carte a resoudre <exemple: Expert27>: ";
 		cin >> _nomMap;
 		nomFichier = "map" + _nomMap + ".txt";
 	} while (!readFile(_mapJeu, nomFichier.c_str()));
