@@ -400,10 +400,10 @@ bool readFileCSV(map<TYPE>& mapLue, const char* nomFichier)
 		while (getline(fichier, ligne, delimiter))
 		{
 			fichier >> ligne;
-			cout << ligne << endl;
+			//cout << ligne << endl;
 		}
 		//fichier >> mapLue; //lecture de la matrice
-		//mapLue.print(cout);
+		mapLue.print(cout);
 		fichier.close();
 		return true;
 	}
