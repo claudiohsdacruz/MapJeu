@@ -10,6 +10,7 @@
 #include<iostream>
 #include<iomanip> 
 #include<fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -47,10 +48,13 @@ public:
 	TYPE*& operator[](int indline) const;								//operateur []
 };
 template<class TYPE>												
-inline bool readFile(map<TYPE>& mapLue, const char* nomFichier);		//operateur pour lire un fichier
+bool readFile(map<TYPE>& mapLue, const char* nomFichier);				//operateur pour lire un fichier
 
 template<class TYPE>													
-inline bool readSolution(map<TYPE>& mapLue, const char* nomFichier);	//operateur pour lire un fichier
+bool readSolution(map<TYPE>& mapLue, const char* nomFichier);			//operateur pour lire un fichier
+
+template<class TYPE>
+bool readFileCSV(map<TYPE>& mapLue, const char* nomFichier);			//lit un fichier du type csv
 
 template <class TYPE> 
 ostream& operator<<(ostream& sortie, const map<TYPE>& m);				//operateur de sortie
@@ -95,14 +99,14 @@ inline map<TYPE>::map(const char* name, int nbLine, int nbCol)
 
 //destructeur
 template<class TYPE>
-inline map<TYPE>::~map()
+map<TYPE>::~map()
 {
 	clear();
 }
 
 //copieur
 template<class TYPE>
-inline map<TYPE>::map<TYPE>(const map<TYPE>& mapCopie)
+map<TYPE>::map<TYPE>(const map<TYPE>& mapCopie)
 {
 	assert(mapCopie._nbLine >= 0 && mapCopie._nbCol >= 0);
 
@@ -133,7 +137,7 @@ inline map<TYPE>::map<TYPE>(const map<TYPE>& mapCopie)
 
 //clear la map et le nom
 template<class TYPE>
-inline void map<TYPE>::clear()
+void map<TYPE>::clear()
 {
 	clearMap();
 	clearName();
@@ -141,7 +145,7 @@ inline void map<TYPE>::clear()
 
 //clear la map et remet les dimensions à 0
 template<class TYPE>
-inline void map<TYPE>::clearMap()
+void map<TYPE>::clearMap()
 {
 	for (int i = 0; i < _nbLine; i++)	//on delete les lignes du map avant de detruire le map
 	{
@@ -156,7 +160,7 @@ inline void map<TYPE>::clearMap()
 
 //clear le nom
 template<class TYPE>
-inline void map<TYPE>::clearName()
+void map<TYPE>::clearName()
 {
 	delete[]_name;
 	_name = nullptr;
@@ -164,21 +168,21 @@ inline void map<TYPE>::clearName()
 
 //retourne le nb de ligne
 template<class TYPE>
-inline int map<TYPE>::nbLine() const
+int map<TYPE>::nbLine() const
 {
 	return _nbLine;
 }
 
 //retourne le nb de colonne
 template<class TYPE>
-inline int map<TYPE>::nbCol() const
+int map<TYPE>::nbCol() const
 {
 	return _nbCol;
 }
 
 //resize la matrice avec les nouv. dims
 template<class TYPE>
-inline void map<TYPE>::resize(int nbLine, int nbCol)
+void map<TYPE>::resize(int nbLine, int nbCol)
 {
 	assert(nbLine >= 0 && nbCol >= 0);
 
@@ -209,7 +213,7 @@ inline void map<TYPE>::resize(int nbLine, int nbCol)
 
 //retourne une référence à l’élément
 template<class TYPE>
-inline TYPE& map<TYPE>::at(int posI, int posJ) const
+TYPE& map<TYPE>::at(int posI, int posJ) const
 {
 	assert(posI >= 0 && posI < _nbLine);
 	assert(posJ >= 0 && posJ < _nbCol);
@@ -219,7 +223,7 @@ inline TYPE& map<TYPE>::at(int posI, int posJ) const
 
 //retourne le nom de la map
 template<class TYPE>
-inline const char* map<TYPE>::getName() const
+const char* map<TYPE>::getName() const
 {
 	if (_name == nullptr) {
 		return "\0";
@@ -229,7 +233,7 @@ inline const char* map<TYPE>::getName() const
 
 //modifie le nom de la map
 template<class TYPE>
-inline void map<TYPE>::setName(const char* name)
+void map<TYPE>::setName(const char* name)
 {
 	clearName();
 
@@ -257,7 +261,7 @@ void map<TYPE>::print(ostream& sortie) const
 	}
 }
 
-//operateur d'enregistrement
+//enregistrement de la solution dans le fichier 
 template<class TYPE>
 void map<TYPE>::writeFile(ostream& sortie) const
 {
@@ -279,7 +283,7 @@ void map<TYPE>::writeFile(ostream& sortie) const
 
 //operateur de sortie
 template<class TYPE>
-inline ostream& operator<<(ostream& sortie, const map<TYPE>& m)
+ostream& operator<<(ostream& sortie, const map<TYPE>& m)
 {
 	m.print(sortie);
 	return sortie;
@@ -287,7 +291,7 @@ inline ostream& operator<<(ostream& sortie, const map<TYPE>& m)
 
 //operateur pour lire un fichier
 template<class TYPE>
-inline void map<TYPE>::read(istream& entree)
+void map<TYPE>::read(istream& entree)
 {
 	assert(_map != nullptr);
 	for (int i = 0; i < _nbLine; i++)
@@ -302,7 +306,7 @@ inline void map<TYPE>::read(istream& entree)
 
 //operateur de afectation
 template<class TYPE>
-inline const map<TYPE>& map<TYPE>::operator=(const map<TYPE>& mapCopie)
+const map<TYPE>& map<TYPE>::operator=(const map<TYPE>& mapCopie)
 {
 	assert(mapCopie._nbLine >= 0 && mapCopie._nbCol >= 0);
 
@@ -337,7 +341,7 @@ inline const map<TYPE>& map<TYPE>::operator=(const map<TYPE>& mapCopie)
 
 //operateur []
 template<class TYPE>
-inline TYPE*& map<TYPE>::operator[](int indLine) const
+TYPE*& map<TYPE>::operator[](int indLine) const
 {
 	assert(indLine >= 0 && indLine < _nbLine);
 	// // O: insérer une instruction return ici
@@ -347,7 +351,7 @@ inline TYPE*& map<TYPE>::operator[](int indLine) const
 
 //operator d'entree de données
 template<class TYPE>
-inline istream& operator>>(istream& entree, map<TYPE>& m)
+istream& operator>>(istream& entree, map<TYPE>& m)
 {
 	m.read(entree);
 	return entree;
@@ -355,7 +359,7 @@ inline istream& operator>>(istream& entree, map<TYPE>& m)
 
 //fonction d’ouverture du fichier contenant la matrice
 template<class TYPE>
-inline bool readFile(map<TYPE>& mapLue, const char* nomFichier) {
+bool readFile(map<TYPE>& mapLue, const char* nomFichier) {
 	
 	ifstream fichier(nomFichier); //ouverture du ficher
 	int nbLine, nbCol;
@@ -374,8 +378,40 @@ inline bool readFile(map<TYPE>& mapLue, const char* nomFichier) {
 		cout << "Le Fichier : ./MapJeu/" << nomFichier << " n'existe pas. Veuillez recomencer." << endl;
 	return false;
 }
+
+//lire un fichier csv
 template<class TYPE>
-inline bool readSolution(map<TYPE>& mapLue, const char* nomFichier)
+bool readFileCSV(map<TYPE>& mapLue, const char* nomFichier)
+{
+	ifstream fichier(nomFichier); //ouverture du ficher
+	int nbLine, nbCol;
+	char delimiter;
+	string ligne;
+
+	if (fichier.is_open())
+	{
+		mapLue.setName(nomFichier);
+		fichier >> nbLine >> delimiter >> nbCol;
+		mapLue.resize(nbLine, nbCol);
+		cout << endl << "Contenu initiale de la grille de jeu ./MapJeu/" << nomFichier << " :" << endl << endl;
+		
+		while (getline(fichier, ligne, delimiter))
+		{
+			fichier >> ligne >> delimiter;
+			cout << ligne << endl;
+		}
+		//fichier >> mapLue; //lecture de la matrice
+		//mapLue.print(cout);
+		fichier.close();
+		return true;
+	}
+	else
+		cout << "Le Fichier : ./MapJeu/" << nomFichier << " n'existe pas. Veuillez recomencer." << endl;
+	return false;
+}
+
+template<class TYPE>
+bool readSolution(map<TYPE>& mapLue, const char* nomFichier)
 {
 	ifstream fichier(nomFichier); //ouverture du ficher
 	int nbLine, nbCol;
