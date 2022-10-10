@@ -51,10 +51,7 @@ template<class TYPE>
 bool readFile(map<TYPE>& mapLue, const char* nomFichier);				//operateur pour lire un fichier
 
 template<class TYPE>													
-bool readSolution(map<TYPE>& mapLue, const char* nomFichier);			//operateur pour lire un fichier
-
-template<class TYPE>
-bool readFileCSV(map<TYPE>& mapLue, const char* nomFichier);			//lit un fichier du type csv
+bool readSolution(map<TYPE>& mapLue, const char* nomFichier);			//lire le fichier solution
 
 template <class TYPE> 
 ostream& operator<<(ostream& sortie, const map<TYPE>& m);				//operateur de sortie
@@ -381,9 +378,9 @@ bool readFile(map<TYPE>& mapLue, const char* nomFichier) {
 	return false;
 }
 
-//lire un fichier csv
+//lire le fichier solution
 template<class TYPE>
-bool readFileCSV(map<TYPE>& mapLue, const char* nomFichier)
+bool readSolution(map<TYPE>& mapLue, const char* nomFichier)
 {
 	ifstream fichier(nomFichier); //ouverture du ficher
 	int nbLine, nbCol;
@@ -411,23 +408,3 @@ bool readFileCSV(map<TYPE>& mapLue, const char* nomFichier)
 		cout << "Le Fichier : ./MapJeu/" << nomFichier << " n'existe pas. Veuillez recomencer." << endl;
 	return false;
 }
-
-template<class TYPE>
-bool readSolution(map<TYPE>& mapLue, const char* nomFichier)
-{
-	ifstream fichier(nomFichier); //ouverture du ficher
-	int nbLine, nbCol;
-	if (fichier.is_open())
-	{
-		mapLue.setName(nomFichier);
-		fichier >> nbLine >> nbCol;
-		mapLue.resize(nbLine, nbCol);
-		cout << endl << "Contenu de la grille solutionee ./MapJeu/" << nomFichier << " :" << endl << endl;
-		fichier >> mapLue; //lecture de la matrice
-		mapLue.print(cout);
-		fichier.close();
-		return true;
-	}
-	return false;
-}
-//cout << endl << "Contenu de la grille solutionee ./MapJeu/" << nomFichier << " :" << endl << endl;
