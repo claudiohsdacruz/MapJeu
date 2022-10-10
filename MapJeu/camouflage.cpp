@@ -245,7 +245,7 @@ void camouflage::printSolution()
 	if (_solutionner)
 	{
 		_solutionJeu.writeFile(fichier);
-		readSolution(_solutionJeu, nomFichier.c_str());
+		readFileCSV(_solutionJeu, nomFichier.c_str());
 	}
 	else
 	{

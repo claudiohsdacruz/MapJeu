@@ -267,7 +267,7 @@ void map<TYPE>::writeFile(ostream& sortie) const
 {
 	assert(_map != nullptr);
 
-	sortie << _nbLine << " " << _nbCol << endl << endl;
+	sortie << _nbLine << "," << _nbCol << endl << endl;
 	for (int i = 0; i < _nbLine; i++)
 	{
 		for (int j = 0; j < _nbCol; j++)
@@ -277,6 +277,7 @@ void map<TYPE>::writeFile(ostream& sortie) const
 			else
 				sortie << *(*(_map + i) + j);
 		}
+		//sortie << ",";
 		sortie << endl;
 	}
 }
@@ -395,9 +396,9 @@ bool readFileCSV(map<TYPE>& mapLue, const char* nomFichier)
 		mapLue.resize(nbLine, nbCol);
 		cout << endl << "Contenu initiale de la grille de jeu ./MapJeu/" << nomFichier << " :" << endl << endl;
 		
-		while (getline(fichier, ligne, delimiter))
+		while (getline(fichier, ligne))
 		{
-			fichier >> ligne >> delimiter;
+			fichier >> ligne;
 			cout << ligne << endl;
 		}
 		//fichier >> mapLue; //lecture de la matrice
